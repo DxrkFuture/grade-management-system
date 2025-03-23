@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block title %}Добавить пользователя{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Добавить нового пользователя</h2>
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="username" class="form-label">Имя пользователя</label>
+                        <input type="text" class="form-control" id="username" name="username" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Пароль</label>
+                        <input type="password" class="form-control" id="password" name="password" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="group" class="form-label">Группа</label>
+                        <select class="form-select" id="group" name="group" required>
+                            <option value="student">Студент</option>
+                            <option value="teacher">Преподаватель</option>
+                        </select>
+                    </div>
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Добавить пользователя</button>
+                        <a href="{{ url_for('users') }}" class="btn btn-secondary">Отмена</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %} 

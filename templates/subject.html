@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}{{ subject.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ subject.title }}</h1>
+<p class="lead">{{ subject.description }}</p>
+
+<h2>Оценки</h2>
+{% if current_user.group == 'admin' %}
+<div class="card mb-4">
+    <div class="card-body">
+        <h5 class="card-title">Добавить оценку</h5>
+        <form action="{{ url_for('add_grade', subject_id=subject.id) }}" method="POST">
+            <div class="mb-3">
+                <label for="user_id" class="form-label">Пользователь</label>
+                <select class="form-select" id="user_id" name="user_id" required>
+                    {% for user in users %}
+                    <option value="{{ user.id }}">{{ user.username }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="value" class="form-label">Оценка</label>
+                <input type="number" step="0.1" class="form-control" id="value" name="value" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Добавить</button>
+        </form>
+    </div>
+</div>
+{% endif %}
+
+<div class="table-responsive">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Пользователь</th>
+                <th>Оценка</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+            <tr>
+                <td>{{ grade.user.username }}</td>
+                <td>{{ grade.value }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %} 
